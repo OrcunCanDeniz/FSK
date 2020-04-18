@@ -1,6 +1,7 @@
 %Orcun Can Deniz 
 %B/M-FSK Simulation Script 
 
+%% Modulate, Send, Demodulate B/M FSK Signal
 clc;clear all;close all
 freqs_for_visualization = true;
 M=8;%change this value to have FSKs with different order
@@ -91,9 +92,7 @@ figure;
 vis_dec_data = [decoded_data decoded_data(end)];
 stairs(vis_dec_data, 'LineWidth', 2,'color',[0 1 0]);xlim([1 numel(vis_dec_data)]);title("Decoded Data Stream")
 
-figure;
-obw(mod,fs)
-
+%% Compare BER and Power Efficiencies
 EbNo = (-5:10)';
 
 ber4 = berawgn(EbNo,'fsk',4,'coherent');
@@ -101,3 +100,10 @@ ber8 = berawgn(EbNo,'fsk',8,'coherent');
 figure;
 semilogy(EbNo,[ber4 ber8], 'LineWidth',2); xlabel("dB"); ylabel("BER");
 legend('4FSK','8FSK') ;
+
+%% Compare BW Efficiencies
+Ms = (2:256);
+bwEff = 2.*log2(Ms)./Ms
+figure;
+semilogy(Ms,[bwEff], 'LineWidth',4); xlabel("M"),
+title("MFSK Bandwith Efficiency");ylabel("Bandwidth Effieciency [b/s/Hz]");xlim([2 256])
