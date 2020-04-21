@@ -16,9 +16,8 @@ switch M
     otherwise
         data=randi([0 M-1],8,1)'
 end
-%data=randi([0 M-1],sym_num,1)';
-%colors = rand(M,3);
-load colors
+
+colors = rand(M,3);
 fc = 20e+3;
 freqs=[];
 
